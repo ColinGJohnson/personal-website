@@ -1,1 +1,314 @@
-Hello There
+<!-- Doing some snooping, eh?! Please, share my pretty little site with your friends and family.
+		                 __        .-.
+	                 .-"` .`'.    /\\|
+		     _(\-/)_" ,  .   ,\  /\\\/
+	<3	--  {(#b^d#)} .   ./,  |/\\\/
+		    `-.(Y).-`  ,  |  , |\.-`
+		         /~/,_/~~~\,__.-`
+		        ////~    // ~\\
+		      ==`==`   ==`   ==`
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- customized Bootstrap 4 CSS -->
+	<link rel="stylesheet" type="text/css" href="custom.css">
+
+	<!-- other CSS -->
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<!-- iconic icon's bootstrap 4 font -->
+	<link href="./open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+
+	<!-- favicon links -->
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+	<title>Colin Johnson</title>
+</head>
+<body style="display: flex; flex-direction: column;">
+<div style="flex: 1 0 auto">
+
+	<!-- HEADER SECTION --> 
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="display-3">Hi, I'm Colin,</h1>
+			<p class="lead">a third year computer science student from Victoria, BC currently attending UVic.</p>
+			<a href="https://github.com/ColinGJohnson">
+				<span class="oi oi-code" title="code icon" aria-hidden="true"></span>&nbsp;GitHub | github.com/ColinGJohnson
+			</a>
+			<br>
+			<a href="https://www.linkedin.com/in/colin-johnson-664227174">
+				<span class="oi oi-person" title="code icon" aria-hidden="true"></span>&nbsp;LinkedIn | linkedin.com
+			</a>
+			<br>
+			<a href="mailto:colin@colinjohnson.net">
+				<span class="oi oi-envelope-closed" title="envelope icon" aria-hidden="true"></span>&nbsp;Email | colin@colinjohnson.net
+			</a>
+		</div>
+	</div>
+
+	<!-- MAIN CONTENT -->
+	<div class="container">
+		<p class="indent"> <i>I don't post any University assignments due to potential issues with plagiarism.</i><br>Below are some of the  projects I've worked on in my free time; all in varying states of completion. Most of this stuff is written in Java or Python, along with a couple other languages from time to time. All of these projects have their source code posted on my Github alone with more information in their README files.</p>
+		
+
+		<div class="card-columns">
+
+			<!-- Maze Game -->
+			<div class="card text-" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;"  src=".\img\Screenshots\mazeGame1.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						Maze Game
+						<br>
+						<small class="font-weight-light">(2018, JavaScript)</small>
+					</h5>
+					<p class="card-text">
+						A JavaScript browser game. The goal is the reach the end of a small maze generated using a recursive backtracking algorithm.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://colingjohnson.github.io/maze-game/index.html" class="btn btn-success mb-1 mt-1">
+						<span class="oi oi-media-play" title="code icon" aria-hidden="true"></span>
+						&nbsp;Play Now
+					</a>
+					<a href="https://github.com/ColinGJohnson/maze-game" class="btn btn-outline-dark mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- UVic Course Data Scraper -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<div class="card-body">
+					<h5 class="card-title">
+						UVic Course Data Scraper 
+						<br>
+						<small class="font-weight-light">(2018, Python)</small>
+					</h5>
+					<p class="card-text">
+						A python web scraping app able to collect all past and present uvic course data and save it as .json or sqlite3 .db; An application of robobrower and beautiful soup 4.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/uvic-course-scraper" class="btn btn-outline-dark mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- Multiplayer Chess -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;" src=".\img\Screenshots\multiplayerChess.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						Multiplayer Chess
+						<br>
+						<small class="font-weight-light">(2018, Java)</small>
+					</h5>
+					<p class="card-text">
+						Play command-line chess with your friends over TCP sockets! It's pretty easy to cheat, so be nice.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/multiplayer-chess" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- CSV-Sankey Converter -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<div class="card-body">
+					<h5 class="card-title">
+						CSV-Sankey Converter
+						<br>
+						<small class="font-weight-light">(2018, Python)</small>
+					</h5>
+					<p class="card-text">
+						Filters and converts .csv debit card transaction records into a format usable on <a href="http://sankeymatic.com/">sankeymatic.com</a>. Sankey diagrams are a great way to visualize spending, but manually tallying up purchases is far too time consuming. 
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/csv-sankey" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- DFS Visualization -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;" src=".\img\Screenshots\DFScoloring1.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						DFS Visualization
+						<br>
+						<small class="font-weight-light">(2018, Java)</small>
+					</h5>
+					<p class="card-text">
+						Paints pretty pictures using a souped-up depth first search algorithm with lots of fun parameters. (it can make mazes, too).
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/dfs-coloring" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- Facebook Message Counter -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<div class="card-body">
+					<h5 class="card-title">
+						Facebook Message Counter 
+						<br>
+						<small class="font-weight-light">(2018, Python)</small>
+					</h5>
+					<p class="card-text">
+						See who you don't care about anymore! Counts messages (or characters!) sent and recieved with your facebook friends, then spits out a spreadsheet for easy graphing.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/message-counter" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- N-Body Simulations -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;"  src=".\img\Screenshots\particle3.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						N-Body Simulation <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text"> A brute force n-body simulation with particles colored according to their instantaneous net velocity. Can simulate up to around 100,000 particles in real time. </p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/gravity-particles" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- Swing GUI Application -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;"  src=".\img\Screenshots\SwingApp1.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						Swing GUI Application <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text">
+						A Java swing app I made to test various J-components. It also includes a custom JPanel used for java.awt graphics.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/2d-physics" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- LibGDX 2D Game -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;" src=".\img\Screenshots\2dGameEngineDemo1.jpg" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						2D CS:GO Clone <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text">
+						The beginnings of a 2D game created using the LibGDX Java Game Library. Scans .png images and generates hitboxes around areas of 50% grey.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/top-down-cs" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- Racing Game -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;"  src=".\img\Screenshots\Desert4.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						Desert Racing Game <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text"> A racing game where the goal is the dodge obstacles and projectiles while picking up powerups, fuel and new vehicles until the goal is reached.</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/desert-escape-game" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- LibGdx Mobile Game -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;"  src=".\img\Screenshots\TankGame2.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						LibGDX Mobile Game <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text">
+						A tanks game for Windows and Android. Made using the formerly popular LibGDX Java Game Library. 
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/tank-game" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+
+			<!-- 2D Portal 2 Clone -->
+			<div class="card" style="width: 100%; height: 100%;">
+				<img style="height: 12rem; object-fit: cover;" src=".\img\Screenshots\portalGame.png" class="card-img-top" alt="program demo image">
+				<div class="card-body">
+					<h5 class="card-title">
+						2D Portal 2 Clone <small class="font-weight-light">(2017, Java)</small>
+					</h5>
+					<p class="card-text">
+						A really bad 2D portal 2 knockoff.
+					</p>
+				</div>
+				<div class="card-footer text-center">
+					<a href="https://github.com/ColinGJohnson/multiplayer-chess" class="btn btn-outline-dark  mb-1 mt-1">
+						<span class="oi oi-code" title="code icon" aria-hidden="true"></span>
+						&nbsp;View Source
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- FOOTER -->
+	<footer class="text-center footer" style="flex-shrink: 0;">
+		<small class="text-center">Colin Johnson 2019</small>  
+	</footer>
+</div>
+</div>
+
+<!-- Load js after content: jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,15 +1,15 @@
 {
-  "name": "personal_website",
+  "name": "colin-johnson-homepage",
   "version": "1.0.0",
-  "description": "",
+  "description": "Personal Website",
   "main": "index.js",
-  "dependencies": {
-    "bootstrap": "^4.3.1"
-  },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Colin Johnson",
+  "license": "ISC",
+  "dependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  }
 }

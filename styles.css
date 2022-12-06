@@ -5,6 +5,11 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
+#webgl-canvas {
+    width: 700px;
+    height: 700px;
+}
+
 h1 {
     margin-bottom: 10px;
     font-size: 72px;

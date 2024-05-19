@@ -1,6 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import 'webpack-dev-server';
 
@@ -44,6 +45,11 @@ const config: webpack.Configuration = {
     ],
   },
   plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/robots.txt' }
+      ]
+    }),
     new HtmlWebpackPlugin({
       title: 'Colin Johnson',
       inject: false,

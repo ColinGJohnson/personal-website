@@ -35,13 +35,27 @@ const config: webpack.Configuration = {
         ],
       },
       {
+        test: /\.css$/i,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ],
+      },
+      {
         test: /\.wgsl$/i,
         use: 'raw-loader',
       },
       {
         test: /\.hbs$/,
         use: "handlebars-loader"
-      }
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[name][ext]'
+        }
+      },
     ],
   },
   plugins: [

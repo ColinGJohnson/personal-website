@@ -1,4 +1,6 @@
 import shaderCode from "./shaders/triangle.wgsl";
+import '@fontsource/roboto/900.css';
+import '@fontsource/roboto/300.css';
 import './styles.scss';
 
 (async () => {

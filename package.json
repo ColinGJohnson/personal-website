@@ -10,22 +10,26 @@
   },
   "devDependencies": {
     "@webgpu/types": "^0.1.40",
-    "@webpack-cli/generators": "^3.0.1",
+    "@webpack-cli/generators": "^3.0.7",
     "copy-webpack-plugin": "^12.0.2",
-    "css-loader": "^6.7.2",
-    "handlebars-loader": "^1.7.2",
+    "css-loader": "^6.11.0",
+    "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.6.0",
-    "mini-css-extract-plugin": "^2.8.1",
-    "prettier": "^2.8.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "prettier": "^2.8.8",
     "raw-loader": "^4.0.2",
-    "sass": "^1.72.0",
-    "sass-loader": "^14.1.1",
-    "style-loader": "^3.3.1",
+    "sass": "^1.77.2",
+    "sass-loader": "^14.2.1",
+    "style-loader": "^3.3.4",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.3",
+    "typescript": "^5.4.5",
     "webpack": "^5.91.0",
-    "webpack-cli": "^5.0.1",
-    "webpack-dev-server": "^4.11.1"
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.2"
+  },
+  "dependencies": {
+    "@fontsource/roboto": "^5.0.13",
+    "file-loader": "^6.2.0"
   }
 }

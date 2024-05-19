@@ -1,3 +1,3 @@
-# ColinGJohnson.github.io
+# personal-website
 
-This repository contains the source for my personal website, to be hosted through GitHub pages.
+My personal website. See it at https://www.cgj.dev/.

@@ -5,15 +5,17 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import 'webpack-dev-server';
 
+let isProduction = process.env.NODE_ENV === 'production';
+
 const config: webpack.Configuration = {
   entry: {
-    index: "./src/app.ts",
+    index: './src/app.ts',
   },
-  mode: "development",
-  devtool: 'inline-source-map',
+  mode: 'development',
+  devtool: isProduction ? false : 'inline-source-map',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
   resolve: {
@@ -30,15 +32,15 @@ const config: webpack.Configuration = {
         test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader",
+          'css-loader',
+          'sass-loader',
         ],
       },
       {
         test: /\.css$/i,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader"
+          'css-loader'
         ],
       },
       {
@@ -47,7 +49,7 @@ const config: webpack.Configuration = {
       },
       {
         test: /\.hbs$/,
-        use: "handlebars-loader"
+        use: 'handlebars-loader'
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/,

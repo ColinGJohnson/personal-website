@@ -59,6 +59,7 @@ ul {
   li::after {
     content: '|';
     color: gray;
+    padding: 0 10px;
   }
 
   li:last-child::after {

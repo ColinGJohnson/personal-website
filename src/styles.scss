@@ -1,12 +1,25 @@
+$solarized-base-2: #eee8d5;
+$solarized-base-3: #fdf6e3;
 
 body {
   background-color: #111;
-  color: white;
+  color: $solarized-base-3;
   font-family: monospace;
   margin: 0;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+#container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding: 0 30px;
+  display: flex;
+  justify-content: center;
 }
 
 #webgpu-canvas {
@@ -17,50 +30,38 @@ body {
 h1 {
   font-weight: 900;
   font-size: 72px;
-  font-family: sans-serif;
+  font-family: serif;
+  text-align: center;
   border-bottom: 1px solid gray;
   margin-top: 20vh;
   margin-bottom: 0;
 }
 
-h2 {
-  font-weight: 300;
-  font-size: 24px;
-  margin: 10px 0;
-  text-align: center;
+a {
+  color: $solarized-base-3;
+
+  &:hover {
+    color: $solarized-base-2;
+  }
 }
 
 ul {
   list-style: none;
-  padding-left: 20px;
+  padding-left: 0;
   margin: 20px 0;
-}
+  text-align: center;
 
-ul li::before {
-  content: "-";
-  margin-right: 5px;
-}
+  li {
+    display: inline-block;
+    font-size: 14px;
+  }
 
-ul li {
-  font-size: 14px;
-  margin-bottom: 10px;
-}
+  li::after {
+    content: '|';
+    color: gray;
+  }
 
-a {
-  color: white;
-}
-
-a:hover {
-  color: lightgray;
-}
-
-.container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  padding: 0 20px;
-  display: flex;
-  justify-content: center;
+  li:last-child::after {
+    content: '';
+  }
 }

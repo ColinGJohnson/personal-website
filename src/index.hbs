@@ -10,26 +10,27 @@
     <script defer src="index.js"></script>
   </head>
   <body>
-    <div class="container">
-      <div class="inner-container">
+    <div id="container">
+      <div>
         <h1>{{ htmlWebpackPlugin.options.title }}</h1>
-        <h2>Software Developer</h2>
-        <ul>
-          <li>
-            <a href="https://github.com/ColinGJohnson">GitHub</a>
-          </li>
-          <li>
-            <a href="https://gitlab.com/ColinGJohnson">GitLab</a>
-          </li>
-          <li>
-            <a href="https://www.linkedin.com/in/cgj">LinkedIn</a>
-          </li>
-        </ul>
+        <nav>
+          <ul>
+            <li>
+              <a href="https://github.com/ColinGJohnson">GitHub</a>
+            </li>
+            <li>
+              <a href="https://gitlab.com/ColinGJohnson">GitLab</a>
+            </li>
+            <li>
+              <a href="https://www.linkedin.com/in/cgj">LinkedIn</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
     <canvas id="webgpu-canvas"></canvas>
     <div id="no-webgpu" style="display:none;">
-        <h4>Error: Your browser does not support WebGPU</h4>
+      <p>Your browser does not support WebGPU.</p>
     </div>
   </body>
 </html>

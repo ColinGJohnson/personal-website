@@ -1,5 +1,5 @@
+import './styles.css';
 import shaderCode from "./shaders/triangle.wgsl";
-import './styles.scss';
 
 (async () => {
 

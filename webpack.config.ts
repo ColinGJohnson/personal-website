@@ -19,7 +19,7 @@ const config: webpack.Configuration = {
     clean: true,
   },
   resolve: {
-    extensions: ['tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js'],
   },
   module: {
     rules: [
@@ -27,14 +27,6 @@ const config: webpack.Configuration = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/,
-      },
-      {
-        test: /\.s[ac]ss$/i,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader',
-        ],
       },
       {
         test: /\.css$/i,

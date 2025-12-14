@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import 'webpack-dev-server';
 
@@ -50,6 +51,12 @@ const config: webpack.Configuration = {
           filename: '[name][ext]'
         }
       },
+    ],
+  },
+  optimization: {
+    minimizer: [
+      // https://webpack.js.org/plugins/css-minimizer-webpack-plugin/
+      new CssMinimizerPlugin(),
     ],
   },
   plugins: [

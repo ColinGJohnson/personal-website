@@ -55,7 +55,7 @@ const config: webpack.Configuration = {
   },
   optimization: {
     minimizer: [
-      // https://webpack.js.org/plugins/css-minimizer-webpack-plugin/
+      '...',
       new CssMinimizerPlugin(),
     ],
   },

@@ -1,5 +1,5 @@
+import shaderCode from "./shaders/noise.wgsl";
 import './styles.css';
-import shaderCode from "./shaders/triangle.wgsl";
 
 async function main() {
   const adapter = await navigator.gpu?.requestAdapter();
@@ -28,14 +28,61 @@ async function main() {
     layout: 'auto',
     vertex: {
       module,
+      buffers: [
+        {
+          arrayStride: 2 * 4, // 2 floats, 4 bytes each
+          attributes: [
+            { shaderLocation: 0, offset: 0, format: 'float32x2' },  // position
+          ],
+        },
+      ],
     },
     fragment: {
       module,
-      targets: [{ format: presentationFormat }],
+      targets: [{format: presentationFormat}],
     },
   });
 
+  // A square covering the entire canvas made of two triangles.
+  const vertexData = new Float32Array(6 * 2);
+  vertexData.set([
+    -1,  1,
+    -1, -1,
+     1,  1,
+     1,  1,
+    -1, -1,
+     1, -1
+  ])
+
+  const vertexBuffer = device.createBuffer({
+    label: 'vertex buffer vertices',
+    size: vertexData.byteLength,
+    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
+  });
+  device.queue.writeBuffer(vertexBuffer, 0, vertexData);
+
+  const uniformBuffer = device.createBuffer({
+    label: 'Uniforms for scale and offset',
+    // 16 bytes: 2 4-byte floats for the scale and 2 floats for the offset
+    size: 16,
+    usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
+  })
+  const uniformValues = new Float32Array([
+      3, // x scale
+      3, // y scale
+      6, // x offset
+      6// y offset
+  ]);
+
+  const bindGroup = device.createBindGroup({
+    layout: pipeline.getBindGroupLayout(0),
+    entries: [
+      { binding: 0, resource: { buffer: uniformBuffer }},
+    ],
+  });
+
   function render() {
+
     const renderPassDescriptor = {
       label: 'Canvas renderPass',
       colorAttachments: [
@@ -53,10 +100,13 @@ async function main() {
     });
     const pass = encoder.beginRenderPass(renderPassDescriptor);
     pass.setPipeline(pipeline);
+    pass.setBindGroup(0, bindGroup);
+    pass.setVertexBuffer(0, vertexBuffer);
     pass.draw(3);
     pass.end();
 
     const commandBuffer = encoder.finish();
+    device.queue.writeBuffer(uniformBuffer, 0, uniformValues);
     device.queue.submit([commandBuffer]);
   }
 
@@ -76,13 +126,14 @@ async function main() {
       render();
     }
   });
+
   try {
-    observer.observe(canvas, { box: 'device-pixel-content-box' });
+    observer.observe(canvas, {box: 'device-pixel-content-box'});
   } catch {
-    observer.observe(canvas, { box: 'content-box' });
+    observer.observe(canvas, {box: 'content-box'});
   }
 }
 
 (async () => {
-  // void main();
+  void main();
 })();

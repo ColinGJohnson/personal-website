@@ -31,10 +31,6 @@ fn fs(fsInput: vsOutput) -> @location(0) vec4f {
   return vec4f(quantized, quantized, quantized, 1.0);
 }
 
-fn quantize(x: f32, steps: f32) -> f32 {
-  return floor(x * steps) / steps;
-}
-
 /**
  * Returns the sum of multiple octaves of gradient noise at the given position.
  * I.e. "Fractal Brownian Motion" (https://thebookofshaders.com/13).
@@ -113,4 +109,8 @@ fn random_2d(position: vec2u) -> f32 {
  */
 fn random(x: f32) -> f32 {
   return fract(sin(x) * 43758.5453123);
+}
+
+fn quantize(x: f32, steps: f32) -> f32 {
+  return floor(x * steps) / steps;
 }

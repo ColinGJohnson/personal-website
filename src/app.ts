@@ -28,14 +28,6 @@ async function main() {
     layout: 'auto',
     vertex: {
       module,
-      buffers: [
-        {
-          arrayStride: 2 * 4, // 2 floats, 4 bytes each
-          attributes: [
-            { shaderLocation: 0, offset: 0, format: 'float32x2' },  // position
-          ],
-        },
-      ],
     },
     fragment: {
       module,
@@ -43,36 +35,12 @@ async function main() {
     },
   });
 
-  // A square covering the entire canvas made of two triangles.
-  const vertexData = new Float32Array(6 * 2);
-  vertexData.set([
-    -1,  1,
-    -1, -1,
-     1,  1,
-     1,  1,
-    -1, -1,
-     1, -1
-  ])
-
-  const vertexBuffer = device.createBuffer({
-    label: 'vertex buffer vertices',
-    size: vertexData.byteLength,
-    usage: GPUBufferUsage.VERTEX | GPUBufferUsage.COPY_DST,
-  });
-  device.queue.writeBuffer(vertexBuffer, 0, vertexData);
-
   const uniformBuffer = device.createBuffer({
     label: 'Uniforms for scale and offset',
     // 16 bytes: 2 4-byte floats for the scale and 2 floats for the offset
     size: 16,
     usage: GPUBufferUsage.UNIFORM | GPUBufferUsage.COPY_DST
   })
-  const uniformValues = new Float32Array([
-      3, // x scale
-      3, // y scale
-      6, // x offset
-      6// y offset
-  ]);
 
   const bindGroup = device.createBindGroup({
     layout: pipeline.getBindGroupLayout(0),
@@ -81,7 +49,17 @@ async function main() {
     ],
   });
 
+  let start = Date.now()
   function render() {
+    const seconds = (Date.now() - start) / 1000;
+    const zoom = Math.sin(seconds / 10) * 0.5 + 0.5;
+    const ratio = canvas.width / canvas.height;
+    const uniformValues = new Float32Array([
+      3 * ratio + zoom, // x scale
+      3 * (1 / ratio) + zoom, // y scale
+      100, // x offset
+      100 + seconds / 5 // y offset
+    ]);
 
     const renderPassDescriptor = {
       label: 'Canvas renderPass',
@@ -101,13 +79,14 @@ async function main() {
     const pass = encoder.beginRenderPass(renderPassDescriptor);
     pass.setPipeline(pipeline);
     pass.setBindGroup(0, bindGroup);
-    pass.setVertexBuffer(0, vertexBuffer);
     pass.draw(3);
     pass.end();
 
     const commandBuffer = encoder.finish();
     device.queue.writeBuffer(uniformBuffer, 0, uniformValues);
     device.queue.submit([commandBuffer]);
+
+    requestAnimationFrame(render);
   }
 
   // https://webgpufundamentals.org/webgpu/lessons/webgpu-resizing-the-canvas.html
@@ -123,7 +102,6 @@ async function main() {
       const canvas = entry.target;
       canvas.width = Math.max(1, Math.min(width, device.limits.maxTextureDimension2D));
       canvas.height = Math.max(1, Math.min(height, device.limits.maxTextureDimension2D));
-      render();
     }
   });
 
@@ -132,6 +110,8 @@ async function main() {
   } catch {
     observer.observe(canvas, {box: 'content-box'});
   }
+
+  requestAnimationFrame(render);
 }
 
 (async () => {

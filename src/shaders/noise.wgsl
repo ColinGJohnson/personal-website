@@ -26,8 +26,8 @@ fn vs(@builtin(vertex_index) index : u32) -> vsOutput {
 @fragment
 fn fs(fsInput: vsOutput) -> @location(0) vec4f {
   // Sample gradient noise and normalize from [-1, 1] to [0, 1]
-  let noise = (gradient_noise_fbm(fsInput.worldPosition, 3) + 1.0) * 0.5;
-  let quantized = quantize(noise, 6);
+  let noise = (gradient_noise_fbm(fsInput.worldPosition, 5) + 1.0) * 0.5;
+  let quantized = quantize(noise, 7);
   return vec4f(quantized, quantized, quantized, 1.0);
 }
 

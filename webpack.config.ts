@@ -62,14 +62,14 @@ const config: webpack.Configuration = {
   plugins: [
     new CopyWebpackPlugin({
       patterns: [
-        { from: 'src/robots.txt' }
+        { from: 'src/assets/robots.txt' }
       ]
     }),
     new HtmlWebpackPlugin({
       title: 'Colin Johnson',
       inject: false,
-      template: 'src/index.hbs',
-      favicon: 'src/favicon.svg'
+      template: 'src/templates/index.hbs',
+      favicon: 'src/assets/favicon.svg'
     }),
     new MiniCssExtractPlugin(),
   ],

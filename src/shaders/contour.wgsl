@@ -19,29 +19,46 @@ struct VSOutput {
   return vsOutput;
 }
 
-@group(0) @binding(0) var postTexture2d: texture_2d<f32>;
-@group(0) @binding(1) var postSampler: sampler;
+@group(0) @binding(0) var noiseTexture: texture_2d<f32>;
+@group(0) @binding(1) var noiseSampler: sampler;
 
 @fragment fn fs2d(fsInput: VSOutput) -> @location(0) vec4f {
-  const SHIFT = 0.0005;
-  let color = textureSample(postTexture2d, postSampler, fsInput.texcoord);
+  let offsets = array(
+   vec2f(0, -1), // N
+   vec2f(1, -1), // NE
+   vec2f(1, 0),  // E
+   vec2f(1, 1),  // SE
+   vec2f(0, 1),  // S
+   vec2f(-1, 1), // SW
+   vec2f(-1, 0), // W
+   vec2f(-1, -1) // SW
+  );
 
-  let shiftLeft = textureSample(postTexture2d, postSampler, fsInput.texcoord + vec2f(-SHIFT, 0));
-  let contourLeft = color - shiftLeft;
+  var onContourLine = false;
+  let color = textureSample(noiseTexture, noiseSampler, fsInput.texcoord);
 
-  let shiftRight = textureSample(postTexture2d, postSampler, fsInput.texcoord + vec2f(SHIFT, 0));
-  let contourRight = color - shiftRight;
-
-  let shiftUp = textureSample(postTexture2d, postSampler, fsInput.texcoord + vec2f(0, SHIFT));
-  let contourUp = color - shiftUp;
-
-  let shiftDown = textureSample(postTexture2d, postSampler, fsInput.texcoord + vec2f(0, -SHIFT));
-  let contourDown = color - shiftDown;
-
-  let contour = contourLeft + contourRight + contourUp + contourDown;
-
-  if (length(contour) > 0.2) {
-    return color / 2.0;
+  const SHIFT = 0.0001;
+  for (var i = 0u; i < 5; i++) {
+    let colorChange = detectColorChange(noiseTexture, noiseSampler, color, fsInput.texcoord, offsets[i] * SHIFT);
+    onContourLine = onContourLine || colorChange;
   }
-  return color / 6.0;
+
+  if (onContourLine) {
+    return solarized(vec4f(1) / 3);
+  }
+
+  return solarized(color / 3);
+}
+
+fn detectColorChange(
+  texture: texture_2d<f32>, textureSampler: sampler, color: vec4f, position: vec2f, offset: vec2f
+) -> bool {
+  let adjacentColor = textureSample(texture, textureSampler, position + offset);
+  return length(color) != length(adjacentColor);
+}
+
+fn solarized(color: vec4f) -> vec4f {
+  // Corresponds to CSS var(--solarized-base-2)
+  const SOLARIZED_BASE_2 = vec3f(0.933, 0.910, 0.835);
+  return color * vec4f(SOLARIZED_BASE_2, 1);
 }

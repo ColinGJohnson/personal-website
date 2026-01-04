@@ -27,8 +27,9 @@ fn vs(@builtin(vertex_index) index : u32) -> vsOutput {
 fn fs(fsInput: vsOutput) -> @location(0) vec4f {
   // Sample gradient noise and normalize from [-1, 1] to [0, 1]
   let noise = (gradient_noise_fbm(fsInput.worldPosition, 5) + 1.0) * 0.5;
-  let quantized = quantize(noise, 7);
-  return vec4f(quantized, quantized, quantized, 1.0);
+  let quantized = quantize(noise, 20);
+  let color = select(0.2, quantized, quantized >= 0.5);
+  return vec4f(color, color, color, 1.0);
 }
 
 /**
@@ -111,6 +112,9 @@ fn random(x: f32) -> f32 {
   return fract(sin(x) * 43758.5453123);
 }
 
-fn quantize(x: f32, steps: f32) -> f32 {
-  return floor(x * steps) / steps;
+/**
+ * Maps a continuous value x to n evenly distributed discrete values.
+ */
+fn quantize(x: f32, n: f32) -> f32 {
+  return floor(x * n) / n;
 }

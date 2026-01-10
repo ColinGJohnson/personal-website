@@ -6,7 +6,7 @@ import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import 'webpack-dev-server';
 
-let isProduction = process.env.NODE_ENV === 'production';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const config: webpack.Configuration = {
   entry: {

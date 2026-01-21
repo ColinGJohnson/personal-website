@@ -36,7 +36,7 @@ struct VSOutput {
 
   var onContourLine = false;
   let color = textureSample(noiseTexture, noiseSampler, fsInput.texcoord);
-
+  // TODO: should depend on the screen's width / height ratio
   const SHIFT = 0.0001;
   for (var i = 0u; i < 5; i++) {
     let colorChange = detectColorChange(noiseTexture, noiseSampler, color, fsInput.texcoord, offsets[i] * SHIFT);

@@ -1,18 +1,20 @@
 import { CanvasResizeObserver } from "./CanvasResizeObserver";
 import { NoiseShader } from "./NoiseShader";
 import { ContourShader } from "./ContourShader";
+import {MouseListener} from "./MouseListener";
 
 class Renderer {
   private readonly device: GPUDevice;
   private readonly context: GPUCanvasContext;
-  private readonly start: number;
   private readonly noiseShader: NoiseShader;
   private readonly contourShader: ContourShader;
+  private readonly mouseListener: MouseListener;
 
-  private mousePosition = { x: 0, y: 0 };
+  private previousRender: DOMHighResTimeStamp = performance.now();
+  private offset = { x: 100, y: 100 };
+  private zoom = { x: 0, y: 0 };
 
   constructor(device: GPUDevice, context: GPUCanvasContext) {
-    this.start = Date.now();
     this.device = device;
     this.context = context;
 
@@ -21,25 +23,20 @@ class Renderer {
 
     this.noiseShader = new NoiseShader(device, context);
     this.contourShader = new ContourShader(device, format);
-
-    document.addEventListener("mousemove", (e: MouseEvent) => {
-      this.mousePosition.x = (e.clientX / window.innerWidth) * 2 - 1;
-      this.mousePosition.y = (e.clientY / window.innerHeight) * 2 - 1;
-    });
+    this.mouseListener = new MouseListener();
   }
 
   animate() {
-    requestAnimationFrame(() => this.render());
+    requestAnimationFrame((delta: DOMHighResTimeStamp) => this.render(delta));
   }
 
-  private render() {
-    const seconds = (Date.now() - this.start) / 1000;
-    const zoom = Math.min(
-      1,
-      this.mousePosition.x * this.mousePosition.x +
-        this.mousePosition.y * this.mousePosition.y,
-    );
-    const ratio = this.context.canvas.width / this.context.canvas.height;
+  /**
+   * @param time The end time of the previous frame's rendering, in milliseconds elapsed since
+   * performance.timeOrigin.
+   */
+  private render(time: DOMHighResTimeStamp) {
+    const delta = (time - this.previousRender) / 1000;
+    this.previousRender = time;
 
     const noiseTexture = this.noiseShader.updateRenderTarget();
     this.contourShader.setInputTexture(noiseTexture.createView());
@@ -49,12 +46,35 @@ class Renderer {
     this.contourShader.renderPass(encoder, this.context.getCurrentTexture());
     const commandBuffer = encoder.finish();
 
-    this.noiseShader.updateUniformBuffer(
-      { x: 2 * ratio + zoom, y: 2 + zoom },
-      { x: 100, y: 100 + seconds / 10 },
-    );
+    this.updateZoom()
+    this.updatePosition(delta)
+    this.noiseShader.updateUniformBuffer(this.zoom, this.offset);
+
     this.device.queue.submit([commandBuffer]);
-    requestAnimationFrame(() => this.render());
+    requestAnimationFrame((delta: DOMHighResTimeStamp) => this.render(delta));
+  }
+
+  private updateZoom() {
+    const height = this.context.canvas.height;
+    const width = this.context.canvas.width;
+    this.zoom = { x: 6 * (width / (height + width)) , y: 6 * (height / (height + width)) }
+  }
+
+  /**
+   * @param delta Time in seconds since the last update.
+   */
+  private updatePosition(delta: number) {
+    let newPosition = {
+      x: this.offset.x,
+      y: this.offset.y + (0.1 * delta),
+    };
+
+    if (this.mouseListener.inWindow) {
+      newPosition.x += (this.mouseListener.position.x * 0.5 * delta);
+      newPosition.y -= (this.mouseListener.position.y * 0.5 * delta);
+    }
+
+    this.offset = newPosition
   }
 }
 

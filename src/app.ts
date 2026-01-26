@@ -1,4 +1,4 @@
-import './assets/styles.css';
+import './app.css';
 
 import {buildRenderer} from "./Renderer";
 

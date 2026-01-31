@@ -11,25 +11,28 @@ struct vsOutput {
   @location(0) worldPosition: vec2f
 };
 
-/**
- * https://webgpufundamentals.org/webgpu/lessons/webgpu-large-triangle-to-cover-clip-space.html
- */
 @vertex
 fn vs(@builtin(vertex_index) index : u32) -> vsOutput {
+
+  // https://webgpufundamentals.org/webgpu/lessons/webgpu-large-triangle-to-cover-clip-space.html
   let pos = array(vec2f(-1.0,  3.0), vec2f( 3.0, -1.0), vec2f(-1.0, -1.0));
+
   return vsOutput(
-    vec4f(pos[index], 0.0, 1.0),
-    pos[index] * camera.scale + camera.offset
+    vec4f(pos[index], 0.0, 1.0), // Clip space position
+    pos[index] * camera.scale + camera.offset // World space position
   );
 }
 
 @fragment
 fn fs(fsInput: vsOutput) -> @location(0) vec4f {
+
   // Sample gradient noise and normalize from [-1, 1] to [0, 1]
-  let noise = (gradient_noise_fbm(fsInput.worldPosition, 5) + 1.0) * 0.5;
-  let quantized = quantize(noise, 20);
-  let color = select(0.2, quantized, quantized >= 0.5);
-  return vec4f(color, color, color, 1.0);
+  let gradientNoise = (gradient_noise_fbm(fsInput.worldPosition, 5) + 1.0) * 0.5;
+
+  // Sharper peaks
+  let noise = gradientNoise * gradientNoise;
+
+  return vec4f(noise, noise, noise, 1.0);
 }
 
 /**
@@ -59,14 +62,13 @@ fn gradient_noise_fbm(position: vec2f, octaves: u32) -> f32 {
 fn gradient_noise(position: vec2f) -> f32 {
 
   // Find the bottom left corner of the grid cell
-  // TODO: Is this vec2f to vec2u conversion safe?
-  let gridPosition = vec2u(floor(position));
+  let gridPosition = vec2i(floor(position));
 
   // Sample random gradients at each corner of the cell
   let g0 = gradient(gridPosition);
-  let g1 = gradient(gridPosition + vec2u(1, 0));
-  let g2 = gradient(gridPosition + vec2u(0, 1));
-  let g3 = gradient(gridPosition + vec2u(1, 1));
+  let g1 = gradient(gridPosition + vec2i(1, 0));
+  let g2 = gradient(gridPosition + vec2i(0, 1));
+  let g3 = gradient(gridPosition + vec2i(1, 1));
 
   // Each each corner's influence is determined by the alignment of its gradient
   // with the vector from that corner to the position being sampled
@@ -92,7 +94,7 @@ fn fade(t: f32) -> f32 {
 /**
  * Returns a pseudorandom 2D unit vector for the given position.
  */
-fn gradient(position: vec2u) -> vec2f {
+fn gradient(position: vec2i) -> vec2f {
   const TAU = 6.283185307179586;
   let angle = random_2d(position) * TAU;
   return vec2f(cos(angle), sin(angle));
@@ -101,7 +103,7 @@ fn gradient(position: vec2u) -> vec2f {
 /**
  * Returns a pseudorandom float in [0, 1] for the given position.
  */
-fn random_2d(position: vec2u) -> f32 {
+fn random_2d(position: vec2i) -> f32 {
   return random(f32(position.x) * random(f32(position.y)));
 }
 
@@ -110,11 +112,4 @@ fn random_2d(position: vec2u) -> f32 {
  */
 fn random(x: f32) -> f32 {
   return fract(sin(x) * 43758.5453123);
-}
-
-/**
- * Maps a continuous value x to n evenly distributed discrete values.
- */
-fn quantize(x: f32, n: f32) -> f32 {
-  return floor(x * n) / n;
 }

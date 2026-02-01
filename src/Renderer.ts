@@ -12,7 +12,7 @@ class Renderer {
 
   private previousRender: DOMHighResTimeStamp = performance.now();
   private offset = { x: 100, y: 100 };
-  private zoom = { x: 0, y: 0 };
+  private scale = { x: 0, y: 0 };
 
   constructor(device: GPUDevice, context: GPUCanvasContext) {
     this.device = device;
@@ -46,18 +46,19 @@ class Renderer {
     this.contourShader.renderPass(encoder, this.context.getCurrentTexture());
     const commandBuffer = encoder.finish();
 
-    this.updateZoom()
+    this.updateScale()
     this.updatePosition(delta)
-    this.noiseShader.updateUniformBuffer(this.zoom, this.offset);
+    this.noiseShader.updateUniformBuffer(this.scale, this.offset);
+    this.contourShader.updateUniformBuffer(this.scale, this.offset);
 
     this.device.queue.submit([commandBuffer]);
     requestAnimationFrame((delta: DOMHighResTimeStamp) => this.render(delta));
   }
 
-  private updateZoom() {
+  private updateScale() {
     const height = this.context.canvas.height;
     const width = this.context.canvas.width;
-    this.zoom = { x: 6 * (width / (height + width)) , y: 6 * (height / (height + width)) }
+    this.scale = { x: 6 * (width / (height + width)) , y: 6 * (height / (height + width)) }
   }
 
   /**
